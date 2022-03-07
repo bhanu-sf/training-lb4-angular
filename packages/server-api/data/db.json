@@ -1,0 +1,11 @@
+{
+  "ids": {
+    "User": 4
+  },
+  "models": {
+    "User": {
+      "1": "{\"id\":1,\"firstName\":\"Bhanu\",\"middleName\":\"Prasad\",\"lastName\":\"Manthry\",\"email\":\"bhanuprasad.manthry@sourcefuse.com\",\"phone\":\"8125641250\",\"role\":\"Admin\",\"address\":\"Hyderabad, India\"}",
+      "2": "{\"firstName\":\"Mr\",\"middleName\":\"Art\",\"lastName\":\"Marshall\",\"email\":\"art.marshall@example.com\",\"phone\":\"016974 35276\",\"role\":\"Admin\",\"address\":\"Highfield Road\",\"id\":2}"
+    }
+  }
+}

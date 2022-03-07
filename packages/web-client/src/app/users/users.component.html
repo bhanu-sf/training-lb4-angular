@@ -1,0 +1,85 @@
+<div style="padding: 0.5rem 0.5rem;">
+  <button (click)="fetchData()">
+    {{ dataFetched ? 'Refresh data' : 'Load data'}}
+  </button>
+</div>
+
+<table id="users">
+  <!-- <colgroup>
+    <col style="width: 7%;" />
+    <col style="width: 10%;" />
+    <col style="width: 10%;" />
+    <col style="width: 15%;" />
+    <col style="width: 10%;" />
+    <col style="width: auto;" />
+    <col style="width: auto;" />
+    <col style="width: auto;" />
+  </colgroup> -->
+
+  <thead>
+    <tr>
+      <th>First name</th>
+      <th>Middle name</th>
+      <th>Last name</th>
+      <th>Email</th>
+      <th>Phone</th>
+      <th>Role</th>
+      <th>Address</th>
+      <th>Action</th>
+    </tr>
+  </thead>
+
+  <tbody *ngFor="let row of users; index as i">
+    <tr *ngIf="!row.isEditing">
+      <td>{{row.data.firstName}}</td>
+      <td>{{row.data.middleName}}</td>
+      <td>{{row.data.lastName}}</td>
+      <td>{{row.data.email}}</td>
+      <td>{{row.data.phone}}</td>
+      <td>{{row.data.role}}</td>
+      <td>{{row.data.address}}</td>
+      <td>
+        <span *ngIf="!row.isEditing">
+          <button (click)="editUser(i)">Edit</button>
+          <button (click)="deleteUser(i)">Delete</button>
+        </span>
+      </td>
+      
+    </tr>
+
+    <tr *ngIf="row.isEditing && row.edited">
+      <td>
+        <input [(ngModel)]="row.edited.firstName">
+      </td>
+      <td>
+        <input [(ngModel)]="row.edited.middleName">
+      </td>
+      <td>
+        <input [(ngModel)]="row.edited.lastName">
+      </td>
+      <td>
+        <input [(ngModel)]="row.edited.email">
+      </td>
+      <td>
+        <input [(ngModel)]="row.edited.phone">
+      </td>
+      <td>
+        <select [(ngModel)]="row.edited.role">
+          <option value="SuperAdmin">SuperAdmin</option>
+          <option value="Admin">Admin</option>
+          <option value="Subscriber">Subscriber</option>
+        </select>
+      </td>
+      <td>
+        <input [(ngModel)]="row.edited.address">
+      </td>
+      
+      <td>
+        <span *ngIf="row.isEditing">
+          <button (click)="updateUser(i)">Save</button>
+          <button (click)="cancelEdit(i)">Cancel</button>
+        </span>
+      </td>
+    </tr>
+  </tbody>
+</table>

@@ -1,0 +1,11 @@
+{
+  "name": "root",
+  "private": true,
+  "devDependencies": {
+    "lerna": "^4.0.0"
+  },
+  "scripts": {
+    "start:server": "lerna run start --scope=server-api",
+    "start:web": "lerna run start --scope=web-client"
+  }
+}
