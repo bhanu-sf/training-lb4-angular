@@ -1,3 +1,5 @@
+import { inject } from '@loopback/core';
+import { LoggingBindings, logInvocation, WinstonLogger } from '@loopback/logging';
 import {
   Count,
   CountSchema,
@@ -21,6 +23,10 @@ import {User} from '../models';
 import {UserRepository} from '../repositories';
 
 export class UserController {
+
+  @inject(LoggingBindings.WINSTON_LOGGER)
+  private logger: WinstonLogger;
+
   constructor(
     @repository(UserRepository)
     public userRepository : UserRepository,
@@ -59,6 +65,7 @@ export class UserController {
   }
 
   @get('/users')
+  @logInvocation()
   @response(200, {
     description: 'Array of User model instances',
     content: {
@@ -73,6 +80,8 @@ export class UserController {
   async find(
     @param.filter(User) filter?: Filter<User>,
   ): Promise<User[]> {
+    this.logger.info('this is on line 54 in user.controller.ts')
+    console.log('Hello from /users')
     return this.userRepository.find(filter);
   }
 

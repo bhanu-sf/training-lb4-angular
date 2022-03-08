@@ -1,5 +1,5 @@
 import {BootMixin} from '@loopback/boot';
-import {ApplicationConfig} from '@loopback/core';
+import {ApplicationConfig, extensionFor} from '@loopback/core';
 import {
   RestExplorerBindings,
   RestExplorerComponent,
@@ -8,7 +8,9 @@ import {RepositoryMixin} from '@loopback/repository';
 import {RestApplication} from '@loopback/rest';
 import {ServiceMixin} from '@loopback/service-proxy';
 import path from 'path';
+import {format, LoggingBindings, LoggingComponent, WinstonTransports, WINSTON_TRANSPORT} from '@loopback/logging';
 import {MySequence} from './sequence';
+import { authMiddleware } from './middlewares/auth.middleware';
 
 export {ApplicationConfig};
 
@@ -28,7 +30,25 @@ export class Application extends BootMixin(
     this.configure(RestExplorerBindings.COMPONENT).to({
       path: '/explorer',
     });
+
+    this.configure(LoggingBindings.COMPONENT).to({
+      enableFluent: false, // default to true
+      enableHttpAccessLog: true, // default to true
+    });
+    
+    const consoleTransport = new WinstonTransports.Console({
+      level: 'info',
+      format: format.combine(format.colorize(), format.simple()),
+    });
+    this
+      .bind('logging.winston.transports.console')
+      .to(consoleTransport)
+      .apply(extensionFor(WINSTON_TRANSPORT));
+    
+    this.component(LoggingComponent);
     this.component(RestExplorerComponent);
+
+    this.middleware(authMiddleware)
 
     this.projectRoot = __dirname;
     // Customize @loopback/boot Booter Conventions here

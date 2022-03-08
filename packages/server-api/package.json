@@ -34,7 +34,8 @@
     "prestart": "npm run rebuild",
     "start": "node -r source-map-support/register .",
     "clean": "lb-clean dist *.tsbuildinfo .eslintcache",
-    "rebuild": "npm run clean && npm run build"
+    "rebuild": "npm run clean && npm run build",
+    "dev": "nodemon --watch src -e ts --exec \"npm run start\""
   },
   "repository": {
     "type": "git",
@@ -51,19 +52,24 @@
   "dependencies": {
     "@loopback/boot": "^4.1.1",
     "@loopback/core": "^3.1.1",
+    "@loopback/logging": "^0.8.1",
     "@loopback/repository": "^4.1.1",
     "@loopback/rest": "^11.1.1",
     "@loopback/rest-explorer": "^4.1.1",
     "@loopback/service-proxy": "^4.1.1",
+    "crypto-js": "^4.1.1",
+    "jsonwebtoken": "^8.5.1",
     "tslib": "^2.0.0"
   },
   "devDependencies": {
     "@loopback/build": "^8.1.1",
-    "source-map-support": "^0.5.21",
-    "@loopback/testlab": "^4.1.1",
-    "@types/node": "^12.20.46",
     "@loopback/eslint-config": "^12.0.3",
+    "@loopback/testlab": "^4.1.1",
+    "@types/crypto-js": "^4.1.1",
+    "@types/jsonwebtoken": "^8.5.8",
+    "@types/node": "^12.20.46",
     "eslint": "^8.10.0",
+    "source-map-support": "^0.5.21",
     "typescript": "~4.5.5"
   }
 }
