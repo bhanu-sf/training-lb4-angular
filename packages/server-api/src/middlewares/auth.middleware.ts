@@ -5,11 +5,15 @@ import jwt from 'jsonwebtoken';
 
 export const authMiddleware: Middleware = async (middlewareCtx, next) => {
   const {request, response} = middlewareCtx;
-  console.log('Request: %s %s', request.method, request.originalUrl);
   try {
-    console.log('printing cookies');
     let cookiesMap = getCookiesMap(request.headers.cookie);
     let token = cookiesMap.token;
+
+    console.log('token %s', token)
+
+    if (!token) {
+      return next();
+    }
     
     // var ciphertext = CryptoJS.AES.encrypt(JSON.stringify({
     //   userId: 1
@@ -21,8 +25,6 @@ export const authMiddleware: Middleware = async (middlewareCtx, next) => {
 
     let jwtToken = jwt.sign(JSON.parse(originalText), 'jwt secret key');
     request.headers['token'] = jwtToken;
-
-    console.log(console.log(request.headers));
 
     const result = await next();
 

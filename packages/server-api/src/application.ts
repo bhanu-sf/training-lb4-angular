@@ -9,10 +9,15 @@ import {RestApplication} from '@loopback/rest';
 import {ServiceMixin} from '@loopback/service-proxy';
 import path from 'path';
 import {format, LoggingBindings, LoggingComponent, WinstonTransports, WINSTON_TRANSPORT} from '@loopback/logging';
+import * as dotenv from 'dotenv';
 import {MySequence} from './sequence';
 import { authMiddleware } from './middlewares/auth.middleware';
 
+dotenv.config();
+
 export {ApplicationConfig};
+
+
 
 export class Application extends BootMixin(
   ServiceMixin(RepositoryMixin(RestApplication)),
