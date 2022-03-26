@@ -60,6 +60,7 @@
     "crypto-js": "^4.1.1",
     "dotenv": "^16.0.0",
     "jsonwebtoken": "^8.5.1",
+    "loopback-connector-openapi": "^6.2.0",
     "loopback-connector-postgresql": "^5.5.0",
     "tslib": "^2.0.0"
   },
